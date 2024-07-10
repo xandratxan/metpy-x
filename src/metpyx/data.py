@@ -1,5 +1,5 @@
 #: Radiation quality series
-_SERIES = {
+SERIES = {
     'L': ['L10', 'L20', 'L30', 'L35', 'L55', 'L70', 'L100', 'L125', 'L170', 'L210', 'L240'],
     'N': ['N10', 'N15', 'N20', 'N25', 'N30', 'N40', 'N60', 'N80', 'N100', 'N120', 'N150', 'N200', 'N250', 'N300',
           'N350', 'N400'],
@@ -7,10 +7,10 @@ _SERIES = {
     'H': ['H10', 'H20', 'H30', 'H40', 'H60', 'H80', 'H100', 'H150', 'H200', 'H250', 'H280', 'H300', 'H350', 'H400']
 }
 #: Operational quantities
-_OPERATIONAL_QUANTITIES = ['H_prime(0.07)', 'H_prime(3)', 'H*(10)', 'Hp(0.07, rod)', 'Hp(0.07, pillar)',
-                           'Hp(0.07, slab)', 'Hp(3, cyl)', 'Hp(10, slab)']
+OPERATIONAL_QUANTITIES = ['H_prime(0.07)', 'H_prime(3)', 'H*(10)', 'Hp(0.07, rod)', 'Hp(0.07, pillar)',
+                          'Hp(0.07, slab)', 'Hp(3, cyl)', 'Hp(10, slab)']
 #: Total filtration thickness for radiation qualities
-_TOTAL_FILTRATION = {
+TOTAL_FILTRATION = {
     'L': {
         'L10': {'Be': 1, 'Pb': 0.0, 'Sn': 0, 'Cu': 0.00, 'Al': 0.3},
         'L20': {'Be': 1, 'Pb': 0.0, 'Sn': 0, 'Cu': 0.00, 'Al': 2.0},
@@ -71,7 +71,7 @@ _TOTAL_FILTRATION = {
     },
 }
 #: Irradiation angles for operational quantities
-_IRRADIATION_ANGLES = {
+IRRADIATION_ANGLES = {
     'H_prime(0.07)': [0, 15, 30, 45, 60, 75, 90, 180],  # Table 1
     'H_prime(3)': [0, 15, 30, 45, 60, 75, 90, 180],  # Table 7
     'H*(10)': [0],  # Table 14
