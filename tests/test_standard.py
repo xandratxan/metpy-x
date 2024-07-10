@@ -219,7 +219,7 @@ class TestXrayStandard:
         for q, e in zip(h_series, h_filtration):
             assert x.get_filtration_thickness(q) == e, f'{q} quality, expected {e}, got {x.get_filtration_thickness(q)}'
 
-    def test_get_filtration_thickness_invalid_quality(self):  # TODO
+    def test_get_filtration_thickness_invalid_quality(self):
         qualities = ['X10', 'L0', 'N0', 'W0', 'H0']
         x = XrayStandard()
         for q in qualities:
