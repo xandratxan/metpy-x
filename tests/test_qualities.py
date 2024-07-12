@@ -1,17 +1,16 @@
 import pytest
 
-from src.metpyx.standard import XrayStandard
+from src.metpyx.qualities import XrayQualities
 
 
-class TestXrayStandard:
+class TestXrayQualities:
     def test_constructor(self):
-        x = XrayStandard()
+        x = XrayQualities()
         result_series = x.series
         result_l = x.l_series
         result_n = x.n_series
         result_w = x.w_series
         result_h = x.h_series
-        result_quantities = x.operational_quantities
         expected_series = ['L', 'N', 'W', 'H']
         expected_l_series = ['L10', 'L20', 'L30', 'L35', 'L55', 'L70', 'L100', 'L125', 'L170', 'L210', 'L240']
         expected_n_series = ['N10', 'N15', 'N20', 'N25', 'N30', 'N40', 'N60', 'N80', 'N100', 'N120', 'N150', 'N200',
@@ -19,23 +18,18 @@ class TestXrayStandard:
         expected_w_series = ['W30', 'W40', 'W60', 'W80', 'W110', 'W150', 'W200', 'W250', 'W300']
         expected_h_series = ['H10', 'H20', 'H30', 'H40', 'H60', 'H80', 'H100', 'H150', 'H200', 'H250', 'H280', 'H300',
                              'H350', 'H400']
-        expected_quantities = ['H_prime(0.07)', 'H_prime(3)', 'H*(10)', 'Hp(0.07, rod)', 'Hp(0.07, pillar)',
-                               'Hp(0.07, slab)', 'Hp(3, cyl)',
-                               'Hp(10, slab)']
         assert result_series == expected_series, f'X-rays series, expected {expected_series}, got {result_series}.'
         assert result_l == expected_l_series, f'L series qualities, expected {expected_l_series}, got {result_l}.'
         assert result_n == expected_n_series, f'N series qualities, expected {expected_n_series}, got {result_n}.'
         assert result_w == expected_w_series, f'W series qualities, expected {expected_w_series}, got {result_w}.'
         assert result_h == expected_h_series, f'H series qualities, expected {expected_h_series}, got {result_h}.'
-        assert result_quantities == expected_quantities, (f'Operational quantities, expected {expected_quantities}, '
-                                                          f'got {result_quantities}.')
 
     def test_is_series(self):
         valid = ['L', 'N', 'W', 'H']
         invalid = ['X']
         series = invalid + valid
         expected = [False] * len(invalid) + [True] * len(valid)
-        x = XrayStandard()
+        x = XrayQualities()
         for s, e in zip(series, expected):
             assert x.is_series(s) is e, f'{s} series, expected {e}, got {x.is_series(s)}'
 
@@ -47,7 +41,7 @@ class TestXrayStandard:
         w_series = ['W30', 'W40', 'W60', 'W80', 'W110', 'W150', 'W200', 'W250', 'W300']
         h_series = ['H10', 'H20', 'H30', 'H40', 'H60', 'H80', 'H100', 'H150', 'H200', 'H250', 'H280', 'H300', 'H350',
                     'H400']
-        x = XrayStandard()
+        x = XrayQualities()
         for quality in invalid:
             assert x.is_quality(quality) is False, f'{quality} quality, expected False, got {x.is_quality(quality)}.'
         for quality in l_series:
@@ -59,16 +53,6 @@ class TestXrayStandard:
         for quality in h_series:
             assert x.is_quality(quality) is True, f'{quality} quality, expected True, got {x.is_quality(quality)}.'
 
-    def test_is_quantity(self):
-        valid = ['H_prime(0.07)', 'H_prime(3)', 'H*(10)', 'Hp(0.07, rod)', 'Hp(0.07, pillar)', 'Hp(0.07, slab)',
-                 'Hp(3, cyl)', 'Hp(10, slab)']
-        invalid = ['X']
-        quantities = invalid + valid
-        expected = [False] * len(invalid) + [True] * len(valid)
-        x = XrayStandard()
-        for q, e in zip(quantities, expected):
-            assert x.is_quantity(q) is e, f'{q} quantity, expected {e}, got {x.is_quantity(q)}.'
-
     def test_get_series_qualities_valid_series(self):
         series = ['L', 'N', 'W', 'H']
         l_series = ['L10', 'L20', 'L30', 'L35', 'L55', 'L70', 'L100', 'L125', 'L170', 'L210', 'L240']
@@ -78,12 +62,12 @@ class TestXrayStandard:
         h_series = ['H10', 'H20', 'H30', 'H40', 'H60', 'H80', 'H100', 'H150', 'H200', 'H250', 'H280', 'H300', 'H350',
                     'H400']
         expected = [l_series, n_series, w_series, h_series]
-        x = XrayStandard()
+        x = XrayQualities()
         for s, e in zip(series, expected):
             assert x.get_series_qualities(s) == e, f'{s} series, expected {e}, got {x.get_series_qualities(s)}.'
 
     def test_get_series_qualities_invalid_series(self):
-        x = XrayStandard()
+        x = XrayQualities()
         with pytest.raises(ValueError) as exc_info:
             x.get_series_qualities('X')
         assert f'X is not an x-ray radiation quality series.' in str(exc_info.value)
@@ -101,13 +85,13 @@ class TestXrayStandard:
         expected_h_series = ['H'] * len(h_series)
         qualities = l_series + n_series + w_series + h_series
         expected = expected_l_series + expected_n_series + expected_w_series + expected_h_series
-        x = XrayStandard()
+        x = XrayQualities()
         for q, e in zip(qualities, expected):
             assert x.get_series(q) == e, f'{q} quality, expected {e} series, got {x.get_series(q)} series.'
 
     def test_get_series_invalid_quality(self):
         qualities = ['X10', 'L0', 'N0', 'W0', 'H0']
-        x = XrayStandard()
+        x = XrayQualities()
         for q in qualities:
             with pytest.raises(ValueError) as exc_info:
                 x.get_series(q)
@@ -126,13 +110,13 @@ class TestXrayStandard:
         expected_h_series = [10, 20, 30, 40, 60, 80, 100, 150, 200, 250, 280, 300, 350, 400]
         qualities = l_series + n_series + w_series + h_series
         expected = expected_l_series + expected_n_series + expected_w_series + expected_h_series
-        x = XrayStandard()
+        x = XrayQualities()
         for q, e in zip(qualities, expected):
             assert x.get_peak_kilovoltage(q) == e, f'{q} quality, expected {e} kV, got {x.get_peak_kilovoltage(q)} kV.'
 
     def test_peak_kilovoltage_invalid_quality(self):
         qualities = ['X10', 'L0', 'N0', 'W0', 'H0']
-        x = XrayStandard()
+        x = XrayQualities()
         for q in qualities:
             with pytest.raises(ValueError) as exc_info:
                 x.get_peak_kilovoltage(q)
@@ -209,7 +193,7 @@ class TestXrayStandard:
         n_filtration = [total_filtration['N'][q] for q in n_series]
         w_filtration = [total_filtration['W'][q] for q in w_series]
         h_filtration = [total_filtration['H'][q] for q in h_series]
-        x = XrayStandard()
+        x = XrayQualities()
         for q, e in zip(l_series, l_filtration):
             assert x.get_filtration_thickness(q) == e, f'{q} quality, expected {e}, got {x.get_filtration_thickness(q)}'
         for q, e in zip(n_series, n_filtration):
@@ -221,31 +205,8 @@ class TestXrayStandard:
 
     def test_get_filtration_thickness_invalid_quality(self):
         qualities = ['X10', 'L0', 'N0', 'W0', 'H0']
-        x = XrayStandard()
+        x = XrayQualities()
         for q in qualities:
             with pytest.raises(ValueError) as exc_info:
                 x.get_filtration_thickness(q)
             assert f'{q} is not an x-ray radiation quality.' in str(exc_info.value)
-
-    def test_get_irradiation_angles_valid_quantity(self):
-        angles = {
-            'H_prime(0.07)': [0, 15, 30, 45, 60, 75, 90, 180],  # Table 1
-            'H_prime(3)': [0, 15, 30, 45, 60, 75, 90, 180],  # Table 7
-            'H*(10)': [0],  # Table 14
-            'Hp(0.07, rod)': [0],  # Table 21
-            'Hp(0.07, pillar)': [0],  # Table 27
-            'Hp(0.07, slab)': [0, 15, 30, 45, 60, 75],  # Table 33
-            'Hp(3, cyl)': [0, 15, 30, 45, 60, 75, 90],
-            'Hp(10, slab)': [0, 15, 30, 45, 60, 75]
-        }
-        quantities = list(angles.keys())
-        expected = [angles[q] for q in quantities]
-        x = XrayStandard()
-        for q, e in zip(quantities, expected):
-            assert x.get_irradiation_angles(q) == e, f'{q} quantity, expected {e}, got {x.get_irradiation_angles(q)}.'
-
-    def test_get_irradiation_angles_invalid_quantity(self):
-        x = XrayStandard()
-        with pytest.raises(ValueError) as exc_info:
-            x.get_irradiation_angles('H')
-        assert f'H is not an x-ray operational quantity.' in str(exc_info.value)
