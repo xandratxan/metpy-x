@@ -1,7 +1,7 @@
 # metpyx: A collection of tools for x-ray metrology
 
 ![Static Badge](https://img.shields.io/badge/Date-Jul_24-teal)
-![Static Badge](https://img.shields.io/badge/Version-1.0.1-teal)
+![Static Badge](https://img.shields.io/badge/Version-1.0.0-teal)
 ![Static Badge](https://img.shields.io/badge/Maintenance-Active-teal)
 
 [![Static Badge](https://img.shields.io/badge/Surce_code-GitHub-blue)](https://github.com/lmri-met/metpyx)
@@ -32,7 +32,7 @@
 ## What is MetPyX?
 
 **MetPyX** is a collection of tools for x-ray metrology.
-**X-ray metrology laboratories** need to deal daily with a wide set x-ray radiation qualities, 
+**X-ray metrology laboratories** need to deal daily with a wide set of x-ray radiation qualities, 
 the filtration thicknesses to get each one of those qualities,
 and the operational magnitudes for radiation protection.
 **MetPyX** provide tools to ease the management all of them.
