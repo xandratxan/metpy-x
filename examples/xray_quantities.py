@@ -1,5 +1,5 @@
 # Script to demonstrate the usage of XrayQuantities class
-from metpyx.quantities import XrayQuantities
+from metpyx import XrayQuantities
 
 # Initialize an XrayQuantities object
 x = XrayQuantities()

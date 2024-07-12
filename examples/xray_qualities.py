@@ -1,5 +1,5 @@
 # Script to demonstrate the usage of XrayQualities class
-from metpyx.qualities import XrayQualities
+from metpyx import XrayQualities
 
 # Initialize an XrayQualities object
 x = XrayQualities()
