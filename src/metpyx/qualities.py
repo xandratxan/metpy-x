@@ -1,4 +1,4 @@
-import src.metpyx.data as dt
+import metpyx.data as dt
 
 
 class XrayQualities:

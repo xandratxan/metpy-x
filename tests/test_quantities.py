@@ -1,6 +1,6 @@
 import pytest
 
-from src.metpyx.quantities import XrayQuantities
+from metpyx.quantities import XrayQuantities
 
 
 class TestXrayQuantities:

@@ -1,6 +1,6 @@
 import pytest
 
-from src.metpyx.qualities import XrayQualities
+from metpyx.qualities import XrayQualities
 
 
 class TestXrayQualities:
